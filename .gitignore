@@ -28,9 +28,7 @@ nbdist/
 pujjr_log/
 /pujjr_gps_log/
 /generatorConfig.xml
-/target/
-/target/
-/target/
-/target/
-/target/
-/target/
+pujjr_gps_log/
+xdshop_log/
+doc/
+temp/
