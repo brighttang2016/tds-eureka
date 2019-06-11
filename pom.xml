@@ -232,7 +232,7 @@
 	</dependencyManagement>
 
 	<build>
-		<plugins>
+	 	<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -262,7 +262,84 @@
 					</nonFilteredFileExtensions>
 				</configuration>
 			</plugin>
+			<!--指定运行java -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<id>resource</id>
+						<phase>process-sources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.tds.eureka.TestRunResource</mainClass>
+							<arguments>
+								<argument>${artifactId}</argument>
+								<argument>123456</argument>
+							</arguments>
+						</configuration>
+					</execution>
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration>
+							<mainClass>com.tds.eureka.TestRunInstall</mainClass>
+							<arguments>
+								<argument>${artifactId}</argument>
+								<argument>123456</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<executions>
+					<execution>
+						<id>feignClient</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+						<configuration>
+							<classifier>feignClient</classifier>
+							<includes>
+								<include>**/feign/*</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+			<plugin>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1</version>
+				<configuration>
+					<attach>true</attach>
+					<includes>
+						<include>**/feign/**</include>
+					</includes>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>install</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
+		
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
